@@ -16,32 +16,24 @@ import java.util.Scanner;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-/**
- * Servlet implementation class MyServlet
- */
+
 @WebServlet("/MyServlet")
 public class MyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+   
     public MyServlet() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		//Api key
@@ -68,7 +60,7 @@ public class MyServlet extends HttpServlet {
          //typecasting
          Gson gson = new Gson();
          JsonObject jsonObject = gson.fromJson(responseContent.toString(), JsonObject.class);
-       // System.out.println(jsonObject);
+        // System.out.println(jsonObject);
         long dateTimestamp = jsonObject.get("dt").getAsLong() * 1000;
         String date = new Date(dateTimestamp).toString();
         
@@ -83,8 +75,9 @@ public class MyServlet extends HttpServlet {
         double windSpeed = jsonObject.getAsJsonObject("wind").get("speed").getAsDouble();
         
         //Weather Condition
-        String weatherCondition = jsonObject.getAsJsonArray("weather").get(0).getAsJsonObject().get("main").getAsString();
-     // Set the data as request attributes (for sending to the jsp page)
+        String weatherCondition = 	 
+        jsonObject.getAsJsonArray("weather").get(0).getAsJsonObject().get("main").getAsString();
+        // Set the data as request attributes (for sending to the jsp page)
         request.setAttribute("date", date);
         request.setAttribute("city", city);
         request.setAttribute("temperature", temperatureCelsius);
